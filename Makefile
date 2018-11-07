@@ -66,7 +66,7 @@ GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
 ifneq ($(GIT_VERSION)," unknown")
 	CFLAGS += -DGIT_VERSION=\"$(GIT_VERSION)\"
 endif
-LIBM		   := -lm
+LIBM		:= -lm
 CORE_DIR    := .
 LDFLAGS     :=
 
@@ -303,6 +303,7 @@ else ifeq ($(platform), classic_armv7_a7)
 	HAVE_DYNAREC = 1
 	CFLAGS += -DARM -DARM_ARCH -DARM_MEMORY_DYNAREC
 	CXXFLAGS = $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11
+	LIBM :=
 	LDFLAGS += -marm -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard
 	ifeq ($(shell echo `$(CC) -dumpversion` "< 4.9" | bc -l), 1)
 	  CFLAGS += -march=armv7-a
