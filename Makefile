@@ -301,16 +301,17 @@ else ifeq ($(platform), classic_armv7_a7)
 	BUILTIN_GPU = neon
 	CPU_ARCH := arm
 	HAVE_DYNAREC = 1
-	CFLAGS += -DARM -DARM_ARCH
-	CFLAGS += -DARM_MEMORY_DYNAREC
+	CFLAGS += -DARM -DARM_ARCH -DARM_MEMORY_DYNAREC
 	CXXFLAGS = $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11
+	LDFLAGS += -marm -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard
 	ifeq ($(shell echo `$(CC) -dumpversion` "< 4.9" | bc -l), 1)
 	  CFLAGS += -march=armv7-a
+	  LDFLAGS += -march=armv7-a
 	else
 	  CFLAGS += -march=armv7ve
 	  # If gcc is 5.0 or later
 	  ifeq ($(shell echo `$(CC) -dumpversion` ">= 5" | bc -l), 1)
-	    LDFLAGS += -static-libgcc -static-libstdc++
+	    LDFLAGS += -static-libgcc -static-libstdc++ -march=armv7ve
 	  endif
 	endif
 #######################################
