@@ -7,6 +7,10 @@ HAVE_MMAP_WIN32=0
 
 UNAME=$(shell uname -a)
 
+ifneq (,$(findstring classic_,$(platform)))
+	DEBUG=1
+endif
+
 ifneq ($(EMSCRIPTEN),)
 	platform = emscripten
 endif
