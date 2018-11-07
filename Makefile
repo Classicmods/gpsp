@@ -285,7 +285,7 @@ else ifeq ($(platform), rpi1)
 else ifeq ($(platform), classic_armv7_a7)
 	TARGET := $(TARGET_NAME)_libretro.so
 	fpic := -fPIC
-    SHARED := -shared -Wl,--version-script=link.T  -Wl,--no-undefined -fPIC
+  	SHARED := -shared -Wl,--version-script=link.T  -Wl,--no-undefined -fPIC
 	CFLAGS += -Ofast \
 	-flto=4 -fwhole-program -fuse-linker-plugin \
 	-fdata-sections -ffunction-sections -Wl,--gc-sections \
@@ -294,7 +294,6 @@ else ifeq ($(platform), classic_armv7_a7)
 	-fno-unwind-tables -fno-asynchronous-unwind-tables -fno-unroll-loops \
 	-fmerge-all-constants -fno-math-errno \
 	-marm -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard
-	CXXFLAGS = $(CFLAGS) -std=gnu++11
 	CPPFLAGS += $(CFLAGS)
 	ASFLAGS += $(CFLAGS)
 	HAVE_NEON = 1
@@ -304,6 +303,7 @@ else ifeq ($(platform), classic_armv7_a7)
 	HAVE_DYNAREC = 1
 	CFLAGS += -DARM -DARM_ARCH
 	CFLAGS += -DARM_MEMORY_DYNAREC
+	CXXFLAGS = $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11
 	ifeq ($(shell echo `$(CC) -dumpversion` "< 4.9" | bc -l), 1)
 	  CFLAGS += -march=armv7-a
 	else
