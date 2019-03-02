@@ -352,7 +352,7 @@ else ifeq ($(platform), classic_armv8_a35)
 	  CFLAGS += -march=armv8-a
 	  # If gcc is 5.0 or later
 	  ifeq ($(shell echo `$(CC) -dumpversion` ">= 5" | bc -l), 1)
-	    LDFLAGS += -static-libgcc -static-libstdc++ -march=armv7ve
+	    LDFLAGS += -static-libgcc -static-libstdc++ -march=armv8-a
 	  endif
 	endif
 #######################################
